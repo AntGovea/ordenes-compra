@@ -1,4 +1,4 @@
-import { Accordion, Button, Container, Form } from "react-bootstrap";
+import { Button, Container, Form, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import {
   getGrandTotal,
@@ -21,7 +21,6 @@ export const Listado = () => {
   // metodo encargado de traer los productos
   const handleGetProducts = async () => {
     const response = await getProducts();
-
     if (response.code === 200) {
       const categoriasUnicas = {};
       let categorias = response.data.filter((item) => {
@@ -65,64 +64,69 @@ export const Listado = () => {
 
   return (
     <>
-      <Container className="mt-6">
-        <Container>
-          <Accordion>
-            <Button
-              onClick={() => {
-                handleGetGrandTotal();
-                setShowGranTotal(true);
-              }}
-              className="me-2"
+      <Container className="mt-5">
+        <Row>
+          <Button
+            variant="success"
+            onClick={() => {
+              handleGetGrandTotal();
+              setShowGranTotal(true);
+            }}
+            className="me-2"
+          >
+            Ver gran total
+          </Button>
+        </Row>
+        <Row>
+          <Form.Group className="mt-3">
+            <Form.Label>Lista de productos</Form.Label>
+            <Form.Select
+              aria-label="seleccione una categoria"
+              onChange={handleChange}
             >
-              Ver gran total
-            </Button>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Lista de productos</Form.Label>
-              <Form.Select
-                aria-label="seleccione una categoria"
-                onChange={handleChange}
+              <option
+                disabled
+                selected
+                defaultValue={"Selecciona una categoria"}
               >
-                <option disabled  selected defaultValue={"Selecciona una categoria"}>
-                  Selecciona una categoria
-                </option>
-                {categorias
-                  ? categorias.map(({ categoria }) => (
-                      <option key={categoria} value={categoria}>
-                        {categoria}
-                      </option>
-                    ))
-                  : null}
-              </Form.Select>
-            </Form.Group>
-            <Button
-              onClick={() => {
-                handleGetTotalByCategory();
-                setShowTotalPorCategoria(true);
-              }}
-              className="me-2"
-            >
-              Ver gran total por categoria
-            </Button>
-            <CustomModal
-              smShow={showGranTotal}
-              closeModal={() => {
-                setShowGranTotal(!showGranTotal);
-              }}
-              title={"GRAN TOTAL"}
-              description={values.granTotal}
-            />
-            <CustomModal
-              smShow={showTotalPorCategoria}
-              closeModal={() => {
-                setShowTotalPorCategoria(!showTotalPorCategoria);
-              }}
-              title={"GRAN TOTAL POR CATEGORIA"}
-              description={values.totalPorCategoria}
-            />
-          </Accordion>
-        </Container>
+                Selecciona una categoria
+              </option>
+              {categorias
+                ? categorias.map(({ categoria }) => (
+                    <option key={categoria} value={categoria}>
+                      {categoria}
+                    </option>
+                  ))
+                : null}
+            </Form.Select>
+          </Form.Group>
+          <Button
+            variant="info"
+            onClick={() => {
+              handleGetTotalByCategory();
+              setShowTotalPorCategoria(true);
+            }}
+            className="mt-3"
+          >
+            Ver gran total por categoria
+          </Button>
+          <CustomModal
+            smShow={showGranTotal}
+            closeModal={() => {
+              setShowGranTotal(!showGranTotal);
+            }}
+            title={"GRAN TOTAL"}
+            description={values.granTotal}
+          />
+          <CustomModal
+            smShow={showTotalPorCategoria}
+            closeModal={() => {
+              setShowTotalPorCategoria(!showTotalPorCategoria);
+            }}
+            title={"GRAN TOTAL POR CATEGORIA"}
+            description={values.totalPorCategoria}
+          />
+        </Row>
       </Container>
     </>
   );

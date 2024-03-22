@@ -9,7 +9,7 @@ export const NavbarComponent = () => {
           <Navbar.Brand href="/">Inicio</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/save">Alta</Nav.Link>
-            <Nav.Link href="/show">Listado</Nav.Link>
+            <Nav.Link href="/show">Totales</Nav.Link>
           </Nav>
         </Container>
       </Navbar>

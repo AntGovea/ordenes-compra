@@ -21,7 +21,6 @@ export const Listado = () => {
   // metodo encargado de traer los productos
   const handleGetProducts = async () => {
     const response = await getProducts();
-    console.log("responses", response);
 
     if (response.code === 200) {
       const categoriasUnicas = {};

@@ -20,7 +20,6 @@ const Entradas = () => {
       precioUnitario: values.precioUnitario,
       importeTotal: values.cantidad * values.precioUnitario,
     });
-    console.log("data", res);
     return res
   };
 
